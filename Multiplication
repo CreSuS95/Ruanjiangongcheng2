@@ -1,0 +1,43 @@
+package myProject;
+
+public class Multiplication {
+	public static int[] Multiply(int num1[], int num2[]) {
+		   int a[] = {1, 1};
+		    int b[] = {1, 1};
+		    int c[] = {2, 1};
+		    int d[] = {3, 1, 1};
+		    a[0] = num1[0] * num1[2] + num1[1];
+		    a[1] = num1[2];
+		    b[0] = num2[0] * num2[2] + num2[1];
+		    b[1] = num2[2];
+		    c[0]=a[0]*b[0];
+		    c[1]=a[1]*b[1];
+		    
+		    int m1=0;
+		     int n1=0;
+		     int temp = 1;
+		    m1=c[0];
+		    n1=c[1];
+		    //取得两个数相除的余数；
+		    temp=c[0]%c[1];
+		    while(temp!=0)
+		    {
+		    m1=n1;n1=temp; temp=m1%n1;
+		    }
+		    c[0] = c[0] / n1;
+		    c[1] = c[1] / n1;
+		    d[0] = c[0] / c[1];
+		    d[1] = c[0] % c[1];
+		    d[2] = c[1];
+		    return d;
+		  }
+		  public static void main(String[] args) {
+		    int nume1[] = {2, 2, 3};
+		    int nume2[] = {3, 2, 4};
+		    int nume3[] = {1, 1, 1};
+		    nume3 = Multiplication.Multiply(nume1, nume2);
+		    System.out.println(nume1[0] + "' " + nume1[1] + "/" + nume1[2]+" x "+nume2[0] + "' " + nume2[1] + "/" + nume2[2]+" =");
+		     System.out.println(nume3[0] + "' " + nume3[1] + "/" + nume3[2]);
+		   }
+
+}
