@@ -1,0 +1,45 @@
+package myProject;
+import java.util.*;
+public class ranNum {
+	 public static int[] RanNumber() {
+	  
+	     int num1[] = {1, 1, 1};
+	     double temp1 = 0;
+	     double temp3=0;
+	     Random ra1 = new Random();
+	     temp3= Math.random();
+	     temp1 = temp3 + ra1.nextInt(10) + 1;
+	     num1[0]=(int)temp1;
+	     temp1=(float)(temp1-num1[0]);
+	     //nextDouble生成0到1的小数
+	     //nextInt+1生成1到10的整形随机数
+	      String str1 = String.valueOf(temp1);
+	      str1=str1.substring(0,3); 
+	      String[] array = new String[2];
+	      array = str1.split("\\.");
+	     int e = Integer.parseInt(array[0]);//获取整数部分
+	     int f = Integer.parseInt(array[1]);//获取小数部分
+
+	   int length = array[1].length();
+	      int FenZi = (int) (e * Math.pow(10, length) + f);
+	      int FenMu = (int) Math.pow(10, length);
+	      int m1=0,n1=0;
+	      int temp = 1;
+	      m1=FenZi;
+	      n1=FenMu;
+	      //取得两个数相除的余数；
+	      temp=FenZi%FenMu;
+	      while(temp!=0)
+	      {
+	      m1=n1;n1=temp; temp=m1%n1;
+	      }
+	      num1[1] = FenZi / n1;
+	      num1[2] = FenMu / n1;
+	  return num1;
+	 }
+	 public static void main(String[] args) {
+		  int nume3[] = {1, 1, 1};
+		  nume3 = ranNum.RanNumber();
+		   System.out.println(nume3[0] + "' " + nume3[1] + "/" + nume3[2]);
+		 }
+}
