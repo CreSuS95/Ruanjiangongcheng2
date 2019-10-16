@@ -1,0 +1,143 @@
+package myProject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class NotRepeat {
+	public static boolean notRepeat(String path) throws IOException{
+		File file=new File(path);
+		String str=" ";
+		String temp1 =" ";
+		int result[]= {1,1,1};
+		int num[]= {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		char operator []= {' ',' ',' ',' '};
+		int i=0;
+	     if(!file.exists()||file.isDirectory())
+	         throw new FileNotFoundException();
+	     BufferedReader br=new BufferedReader(new FileReader(file));
+	     String temp=null;
+	     StringBuffer sb=new StringBuffer();
+	     temp=br.readLine();
+	     while(temp!=null){
+	    	 int num1[]= {1,1,1};
+             int num2[]= {1,1,1};
+             int num3[]= {1,1,1};
+	         //sb.append(temp+" ");//append作用是在一个StringBuffer对象后面追加字符串。
+	         temp=br.readLine();
+	         int parplace=-1;
+	         str = sb.toString();//toString()可以将StringBuffer转换成String
+	         String getSignInfo = str.substring(str.indexOf("（") + 1, str.indexOf("）"));
+	         //获取’（‘的位置
+	         char sss[] = str.toCharArray();
+	         boolean tap=true;
+	         for(i=0;i<str.length();i++) {
+	        	 if(sss[i]=='(') {
+	        		 parplace=i;
+	        		 tap=false;
+	        	 }
+	        	 if(tap==false) {
+	        		 str.replace("[0-9]","");
+	        	 }
+	        	 if(sss[i]==')') {
+	        		 tap=true;
+	        	 }
+	         }
+	         //提取括号里的数字和运算符
+	         char s[] = getSignInfo.toCharArray();
+	         int parantnum []= {0,0};
+	         Pattern p2 =Pattern.compile("^[0-9]*$");
+	         Matcher m2 = p2.matcher(getSignInfo);
+	         i=0;
+	         while (m2.find()) {//通过while循环获得一道题目中的所有数字
+	        	 temp1=m2.group();
+	        	 parantnum[i]=Integer.parseInt(temp1);
+	        	 i++;
+	        }
+	         
+	         for(i=0;i<getSignInfo.length();i++) {
+	        	 int j=0;
+	             num1[0]=parantnum[0];
+	             num1[1]=parantnum[1];
+	             num1[2]=parantnum[2];
+	             num2[0]=parantnum[3];
+	             num2[1]=parantnum[4];
+	             num2[2]=parantnum[5];
+	        	 if(s[i]=='+') {
+	        		 num3=Addition.Add(num1,num2);
+	        	 }
+	        	 if(s[i]=='-') {
+	        		 num3=Substraction.Substract(num1,num2);
+	        	 }
+	        	 if(s[i]=='x') {
+	        		 num3=Multiplication.Multiply(num1,num2);
+	        	 }
+	        	 if(s[i]=='÷') {
+	        		 num3=Division.Divide(num1,num2);
+	        	 }
+	        }
+	             if(-1 < parplace && parplace < 6) {
+	            	 num[0]=num3[0];
+	            	 num[1]=num3[1];
+	            	 num[2]=num3[2];
+	             }
+	             if(6<=parplace&&parplace<=8) {
+	            	 num[3]=num3[0];
+	            	 num[4]=num3[1];
+	            	 num[5]=num3[2];
+	             }
+	             if(9<=parplace&&parplace<=17) {
+	            	 num[6]=num3[0];
+	            	 num[7]=num3[1];
+	            	 num[8]=num3[2];
+	             }
+	             if(18<=parplace) {
+	            	 num[9]=num3[0];
+	            	 num[10]=num3[1];
+	            	 num[11]=num3[2];
+	             }
+	         
+	         
+	         Pattern p1 =Pattern.compile("^[0-9]*$");//提取数字
+	         Matcher m1 = p1.matcher(temp);
+	         while (m1.find()) {//通过while循环获得一道题目中的所有数字
+	        	 temp1=m1.group();
+	        	 while(num[i]!=0) {
+	        		 i++;
+	        	 }
+	        	 num[i]=Integer.parseInt(temp1);
+	        	 
+	        }
+	         char ss[] = str.toCharArray();
+	         for(i=0;i<str.length();i++) {
+	        	 int j=1;
+	        	 if(ss[i]=='+') {
+	        		 operator[j]=ss[i];
+	        		 j++;
+	        	 }
+	        	 if(ss[i]=='-') {
+	        		 operator[j]=ss[i];
+	        		 j++;
+	        	 }
+	        	 if(ss[i]=='x') {
+	        		 operator[j]=ss[i];
+	        		 j++;
+	        	 }
+	        	 if(ss[i]=='÷') {
+	        		 operator[j]=ss[i];
+	        		 j++;
+	        	 }
+	         }
+	         /*for(i=0;;i++) {
+	        	 if(operator[i]=='x')
+	        		 //num[Multiplication.Multiply
+	         }
+	        	 */
+	         
+	     }
+	      return true;
+	}
+}
